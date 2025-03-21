@@ -13,7 +13,7 @@ const Rainfall = () => {
       {raindrops.map(drop => (
         <div
           key={drop.id}
-          className="absolute bg-blue-400/30 w-[1px] h-[15px]"
+          className="absolute bg-blue-800/30 w-[2px] h-[15px]"
           style={{
             left: drop.left,
             animation: `rainfall ${drop.animationDuration} linear ${drop.animationDelay} infinite`

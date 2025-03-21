@@ -64,7 +64,7 @@ function App() {
      
       <div className="min-h-screen bg-gradient-to-br from-blue-300 to-blue-400 py-10 px-4">
       <div className="max-w-2xl mx-auto bg-white rounded-xl shadow-lg p-8">
-        <h1 className="text-3xl font-bold text-center text-blue-800 mb-8">Rainfall Prediction Model</h1>
+        <h1 className="text-3xl font-bold text-center text-blue-800 mb-8">Rainfall Prediction Model 🌦️☔</h1>
         
         {loading && <div className="text-center text-lg text-blue-600 mb-4">Loading prediction...</div>}
         {error && <div className="text-center text-lg text-red-600 mb-4">Something went wrong</div>}
