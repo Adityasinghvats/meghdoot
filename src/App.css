@@ -12,3 +12,14 @@
     transform: translateY(100vh);
   }
 }
+
+@keyframes cloudMove {
+  0% {
+    transform: translateX(0) scale(var(--scale, 1));
+    opacity: var(--opacity, 0.5);
+  }
+  100% {
+    transform: translateX(calc(100vw + 200px)) scale(var(--scale, 1));
+    opacity: var(--opacity, 0.5);
+  }
+}

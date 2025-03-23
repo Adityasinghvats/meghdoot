@@ -25,6 +25,7 @@ function App() {
     ; (async () => {
       try {
         //bring 2 data from server which was sent by sensor
+
         const resSensor = await axios.get('https://sensor-backend-a2mn.onrender.com/data');
         const dataSensor = resSensor.data;
         console.log(dataSensor);
@@ -42,11 +43,15 @@ function App() {
           windspeed: parseFloat(data.windspeed) || 0,
         };
         
-        const response = await axios.post('http://localhost:5000/predict', numericData, {
+        // const response = await axios.post('http://localhost:5000/predict', numericData, {
+        //   signal: controller.signal,
+        // });
+        const response = await axios.post('https://rainfallapi.onrender.com/predict', numericData, {
           signal: controller.signal,
         });
         console.log(response.data);
-        setAnswer(response.data)
+        // setAnswer({"prediction result": "no rainfall"})
+        setAnswer(response.data);
         setLoading(false);
       } catch (error) {
         if(axios.isCancel(error)){
@@ -65,12 +70,15 @@ function App() {
   }, [data])
   return (
     //rainfall part of suggestion
-    <div className="min-h-screen bg-gradient-to-br from-blue-300 to-blue-400 py-10 px-4 relative overflow-hidden">
+    <div className={`min-h-screen py-12 px-6 relative overflow-hidden ${
+      answer && answer["prediction result"] === "rainfall" 
+        ? "bg-linear-to-r from-blue-200 to-blue-400" 
+        : "bg-radial-[at_50%_75%] from-white to-orange-400 to-75%"
+    }`}>
       {answer && answer["prediction result"] === "rainfall" && <Rainfall />}
-     
-      <div className="min-h-screen bg-gradient-to-br from-blue-300 to-blue-400 py-10 px-4">
+      
       <div className="max-w-2xl mx-auto bg-white rounded-xl shadow-lg p-8">
-        <h1 className="text-3xl font-bold text-center text-blue-800 mb-8">Rainfall Prediction Model 🌦️☔</h1>
+        <h1 className="text-3xl font-bold text-center text-blue-800 mb-8">Weather Prediction Model 🌦️☔</h1>
         
         {loading && <div className="text-center text-lg text-blue-600 mb-4">Loading prediction...</div>}
         {error && <div className="text-center text-lg text-red-600 mb-4">Something went wrong</div>}
@@ -78,12 +86,16 @@ function App() {
         
           <div className="space-y-2">
             <label className="block text-sm font-medium text-gray-700">Pressure</label>
-            <p>{data.pressure}</p>
+            <div className="flex items-start w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+              <span>{`Sensor Data : ${data.pressure} hPa`}</span>
+            </div>
           </div>
 
           <div className="space-y-2">
             <label className="block text-sm font-medium text-gray-700">Max Temperature</label>
-            <p>{data.maxtemp}</p>
+            <div className="flex items-start w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+              <span>{`Sensor Data : ${data.maxtemp} °C`}</span>
+            </div>
           </div>
 
           <div className="space-y-2">
@@ -168,7 +180,6 @@ function App() {
         )}
       </div>
     </div>
-  </div>
   )
 }
 
