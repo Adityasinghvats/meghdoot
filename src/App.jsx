@@ -24,7 +24,13 @@ function App() {
     const controller = new AbortController();
     ; (async () => {
       try {
-        //suggestion
+        //bring 2 data from server which was sent by sensor
+        const resSensor = await axios.get('https://sensor-backend-a2mn.onrender.com/data');
+        const dataSensor = resSensor.data;
+        console.log(dataSensor);
+        data.maxtemp = dataSensor.maxtemp;
+        data.pressure = dataSensor.pressure;
+
         const numericData = {
           pressure: parseFloat(data.pressure) || 0,
           maxtemp: parseFloat(data.maxtemp) || 0,
@@ -68,30 +74,16 @@ function App() {
         
         {loading && <div className="text-center text-lg text-blue-600 mb-4">Loading prediction...</div>}
         {error && <div className="text-center text-lg text-red-600 mb-4">Something went wrong</div>}
-        
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        
           <div className="space-y-2">
             <label className="block text-sm font-medium text-gray-700">Pressure</label>
-            <input 
-              type="number"
-              step="0.1" 
-              placeholder="Enter pressure"
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              value={data.pressure}
-              onChange={(e) => setData({...data, pressure: e.target.value})}
-            />
+            <p>{data.pressure}</p>
           </div>
 
           <div className="space-y-2">
             <label className="block text-sm font-medium text-gray-700">Max Temperature</label>
-            <input 
-              type="number"
-              step="0.1" 
-              placeholder="Enter max temperature"
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              value={data.maxtemp}
-              onChange={(e) => setData({...data, maxtemp: e.target.value})}
-            />
+            <p>{data.maxtemp}</p>
           </div>
 
           <div className="space-y-2">
@@ -176,7 +168,7 @@ function App() {
         )}
       </div>
     </div>
-    </div>
+  </div>
   )
 }
 
