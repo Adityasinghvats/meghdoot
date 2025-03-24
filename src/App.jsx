@@ -6,8 +6,8 @@ import Rainfall from './Rainfall';
 function App() {
   const [data, setData] = useState(
     {
-      pressure: "1011",
-      maxtemp: "78",
+      pressure: "",
+      maxtemp: "",
       dewpoint: "",
       humidity: "",
       cloud: "",
@@ -130,7 +130,7 @@ function App() {
               type="number"
               step="0.1" 
               placeholder="Enter dew point"
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               value={data.dewpoint}
               onChange={(e) => setData({...data, dewpoint: e.target.value})}
             />
@@ -142,7 +142,7 @@ function App() {
               type="number"
               step="0.1" 
               placeholder="Enter humidity"
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               value={data.humidity}
               onChange={(e) => setData({...data, humidity: e.target.value})}
             />
@@ -159,7 +159,7 @@ function App() {
               type="number"
               step="0.1" 
               placeholder="Enter cloud cover"
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               value={data.cloud}
               onChange={(e) => setData({...data, cloud: e.target.value})}
             />
@@ -171,7 +171,7 @@ function App() {
               type="number"
               step="0.1" 
               placeholder="Enter sunshine"
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               value={data.sunshine}
               onChange={(e) => setData({...data, sunshine: e.target.value})}
             />
@@ -189,7 +189,7 @@ function App() {
               type="number"
               step="0.1" 
               placeholder="Enter wind direction"
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               value={data.winddirection}
               onChange={(e) => setData({...data, winddirection: e.target.value})}
             />
@@ -201,7 +201,7 @@ function App() {
               type="number"
               step="0.1" 
               placeholder="Enter wind speed"
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               value={data.windspeed}
               onChange={(e) => setData({...data, windspeed: e.target.value})}
             />
