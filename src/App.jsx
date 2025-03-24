@@ -238,21 +238,7 @@ function App() {
             <div className="bg-blue-100 rounded-xl p-6 text-center mb-4">
               <div className="flex justify-center mb-2">
                 {answer["prediction result"] === "rainfall" ? (
-                  <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#2563eb" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M12 2v2"></path>
-                    <path d="M12 8v2"></path>
-                    <path d="M4.93 4.93l1.41 1.41"></path>
-                    <path d="M17.66 17.66l1.41 1.41"></path>
-                    <path d="M2 12h2"></path>
-                    <path d="M20 12h2"></path>
-                    <path d="M6.34 17.66l-1.41 1.41"></path>
-                    <path d="M19.07 4.93l-1.41 1.41"></path>
-                    <path d="M10 20.2V22"></path>
-                    <path d="M14 20.2V22"></path>
-                    <path d="M8 18l-2 4"></path>
-                    <path d="M16 18l2 4"></path>
-                    <path d="M12 12a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"></path>
-                  </svg>
+                  <span role="img" aria-label="rain cloud" style={{ fontSize: '48px' }}>🌦️</span>
                 ) : (
                   <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#2563eb" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242"></path>
