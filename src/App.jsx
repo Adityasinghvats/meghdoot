@@ -22,15 +22,20 @@ function App() {
   const [answer, setAnswer] = useState("")
 
   useEffect(() => {
-    const controller = new AbortController();
-    ; (async () => {
+    const fetchSensorData = async () => {
       try {
+        setLoading(true);
         // bring 2 data from server which was sent by sensor
         const resSensor = await axios.get('https://sensor-backend-a2mn.onrender.com/data');
         const dataSensor = resSensor.data;
         console.log(dataSensor);
-        data.maxtemp = dataSensor.maxtemp;
-        data.pressure = dataSensor.pressure;
+        setData(prevData => ({
+          ...prevData,
+          maxtemp: dataSensor.maxtemp,
+          pressure: dataSensor.pressure
+        }));
+        
+        setLoading(false);
       } catch (error) {
         if(axios.isCancel(error)){
           console.log('Request canceled', error.message);
@@ -38,19 +43,33 @@ function App() {
         }
         setError(true)
         setLoading(false);
-      }
-    })()
-    return () => {
-      controller.abort();
-    }
-  }, [data])
+      };
+    
+    };
+    fetchSensorData();
+  }, []);
 
   //depends on button to send and recevie data to ml server
   const predictRainfall = async() => {
     try {
-      const controller = new AbortController();
+      
       setLoading(true);
       setError(false);
+      try {
+        const resSensor = await axios.get('https://sensor-backend-a2mn.onrender.com/data');
+        const dataSensor = resSensor.data;
+        console.log("Updated sensor data:", dataSensor);
+        
+        // Update state with latest sensor data
+        setData(prevData => ({
+          ...prevData,
+          maxtemp: dataSensor.maxtemp,
+          pressure: dataSensor.pressure
+        }));
+      } catch (sensorError) {
+        console.error("Error updating sensor data:", sensorError);
+        // Continue with prediction using existing data
+      }
       const numericData = {
         pressure: parseFloat(data.pressure) || 0,
         maxtemp: parseFloat(data.maxtemp) || 0,
@@ -65,9 +84,7 @@ function App() {
       // const response = await axios.post('http://localhost:5000/predict', numericData, {
       //   signal: controller.signal,
       // });
-      const response = await axios.post('https://rainfallapi.onrender.com/predict', numericData, {
-        signal: controller.signal,
-      });
+      const response = await axios.post('https://rainfallapi.onrender.com/predict', numericData);
       console.log(response.data);
       // setAnswer({"prediction result": "no rainfall"})
       setAnswer(response.data);
@@ -94,7 +111,7 @@ function App() {
         <div className='bg-blue-800 rounded-xl p-4 mb-4'>
           <h1 className="text-3xl font-bold text-center text-white mb-4">Meghdoot 🌦️☔</h1>
           <p className="text-lg font-thin text-center text-white mb-4">
-          Advanced weather analytics to predict porbability of rainfall
+          Advanced weather analytics to predict probability of rainfall
           </p>
           </div>
         
